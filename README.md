@@ -31,7 +31,7 @@ not the legacy (and increasingly unmaintained) Jython extender API.
   (2023.12 or later).
 - A running `commixapi.py` server - start it from a commix checkout:
   ```bash
-  python commixapi.py
+  python3 commixapi.py
   ```
   which prints the host, port and token to use.
 - A JDK to *build* the extension - 17 at minimum, since that's what Montoya API 2023.12.1 is
@@ -54,36 +54,40 @@ not the legacy (and increasingly unmaintained) Jython extender API.
 > The first build can take a minute longer than usual: Gradle downloads JDK 25 on its own if the
 > machine doesn't already have one, to satisfy the toolchain in `build.gradle`. Later builds reuse it.
 
-The extension jar is written to `build/libs/commix-to-burp-v1.0.0.jar` - a shadow ("fat") jar carrying its own
+The extension jar is written to `build/libs/commix-to-burp-vX.Y.Z.jar` - a shadow ("fat") jar carrying its own
 JSON library, with nothing else bundled (Burp supplies the Montoya API itself at runtime). It's the
 only jar the build produces - Gradle's own `jar` task, which would otherwise leave a second, unusable
 jar in the same folder, is disabled.
 
 ## Installing in Burp
 
-1. **Extensions** → **Installed** → **Add**.
-2. Extension type: **Java**.
-3. Select `build/libs/commix-to-burp-v1.0.0.jar`.
+1) **Extensions** → **Burp extensions** → **Add**.
+2) Extension type: **Java**.
+3) Select `build/libs/commix-to-burp-vX.Y.Z.jar`.
 
 <img alt="1" src="https://github.com/user-attachments/assets/702d1933-3fef-4211-8a13-c876871114f5" />
 
-4. Open the new **commix** tab - it leads with what to do first - fill in the host/port/token
+4) Open the new **commix** tab - it leads with what to do first - fill in the host/port/token
    `commixapi.py` printed on startup, and click **Save & test**.
+   
 <img alt="2" src="https://github.com/user-attachments/assets/a87dc48f-0002-41e4-b6a7-646e93070489" />
 
 ## Using it
 
-1. Right-click any request in Proxy's history, in Repeater, in Target's site map and choose **Scan**.
+1) Right-click any request in Proxy's history, in Repeater, in Target's site map and choose **Scan**.
+   
 <img alt="3" src="https://github.com/user-attachments/assets/28c87b46-33b1-4a2c-8a23-91bece839ee9" />
 
-2. A tabbed options dialog opens first, covering detection, tamper scripts, injection, session and
+2) A tabbed options dialog opens first, covering detection, tamper scripts, injection, session and
    request settings, and post-exploitation - everything you'd otherwise set with command-line flags,
    pre-filled with whatever was chosen last time. **Start Scan** begins the scan; **Cancel** closes
    the dialog without doing anything.
+   
 <img alt="4" src="https://github.com/user-attachments/assets/ed077764-161e-479a-94bf-989b5da344ec" />
 
-3. A new tab opens under **commix**, named after the target. It polls the scan's status and log on
+3) A new tab opens under **commix**, named after the target. It polls the scan's status and log on
    its own; the findings table fills in once something is confirmed.
+   
 <img alt="5" src="https://github.com/user-attachments/assets/eb45c404-742f-4407-a4c1-336b4029a2e9" />
   
    > [!NOTE]
@@ -91,9 +95,9 @@ jar in the same folder, is disabled.
    > without a report; **Edit options & scan again** reopens the options dialog and starts a fresh
    > scan against the same request - useful after a failed or unwanted run, without going back to
    > Burp's history to right-click again.
-
+ 
+4) Confirmed findings also raised as Burp Scanner issues.
    
-5. Confirmed findings also raised as Burp Scanner issues.
 <img alt="6" src="https://github.com/user-attachments/assets/17d83002-4d76-4070-b915-613c196f59a8" />
 
 > [!NOTE]
