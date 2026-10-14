@@ -12,7 +12,7 @@ not the legacy (and increasingly unmaintained) Jython extender API.
 
 ## What it does
 
-- Right-click any request → **Scan**.
+- Right-click any request → **commix** → **Scan**.
 - A tabbed options dialog covers commix's own flags - Detection shown by default, Injection,
   Session & request and Post-exploitation behind **Show advanced options**. Conflicting pairs
   (`--oob` with a technique, Random vs Mobile User-Agent) disable each other instead of failing
