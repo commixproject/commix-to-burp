@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.commixproject'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        // montoya-api 2023.12.1 only requires 17 to compile against, but 25 is the current LTS -
+        // newer JDKs stay source/binary compatible with code written for an older one.
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+dependencies {
+    // Burp provides this interface at runtime - it is never bundled into the extension jar.
+    compileOnly 'net.portswigger.burp.extensions:montoya-api:2023.12.1'
+
+    // Bundled into the shadow jar, since Burp's extension classloader gives the extension nothing
+    // beyond the JDK and the Montoya API itself.
+    implementation 'com.google.code.gson:gson:2.10.1'
+}
+
+shadowJar {
+    archiveBaseName.set('commix-to-burp')
+    archiveClassifier.set('')
+    archiveVersion.set('v' + project.version.toString())
+}
+
+// Burp only ever loads the shadow jar (it bundles gson; the plain one Java's own 'jar' task would
+// produce doesn't), so there's no reason to build that second, unusable jar at all.
+jar {
+    enabled = false
+}
+
+build.dependsOn(shadowJar)

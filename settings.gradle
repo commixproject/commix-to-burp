@@ -1,0 +1,7 @@
+plugins {
+    // Downloads a JDK on its own if the machine building this doesn't have the one the toolchain
+    // block in build.gradle asks for (25, the current LTS - 17 is Montoya API's actual minimum).
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+}
+
+rootProject.name = 'commix-to-burp'
