@@ -110,8 +110,9 @@ jar in the same folder, is disabled.
   crawl - the extension only drives it one request at a time so far).
 
 > [!IMPORTANT]
-> This is the official commix-to-burp extension. 
-> Not on the BApp Store yet - but it's coming; submission is in progress, tracked on [PortSwigger/extension-portal](https://github.com/PortSwigger/extension-portal/issues).
+> **This is the official commix-to-burp extension.**
+> 
+> _Not on the BApp Store yet - but it's coming; submission is in progress, tracked on: [PortSwigger/extension-portal](https://github.com/PortSwigger/extension-portal/issues/561)._
 
 ## Changelog
 
